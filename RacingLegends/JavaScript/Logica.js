@@ -16,15 +16,13 @@ function init() {
 function mostraCategorias(categorias) {
     for (var i = 0; i < categorias.length; i++) {
         // Criar elementos HTML, colocá-los no body ou noutro lado qualquer.
-        //document.body.appendChild(document.createElement('p'));
         var categories = document.querySelector('.categories');
         var paragTitulo = document.createElement('p');
-        //paragTitulo.setAttribute('data-id', categorias[i].id);
+        paragTitulo.setAttribute('categorias-id', categorias[i].id);
         var paragDescricao = document.createElement('p');
 
         var div = document.createElement('div');
         div.setAttribute('class', 'divSec');
-        div.setAttribute('data-id', categorias[i].id);
 
         //////////////////////////////////////
         console.log(categorias[i].id);
@@ -46,8 +44,8 @@ function mostraCategorias(categorias) {
         categories.appendChild(div);
 
         //Evento 'onclick' para mostrar os pilotos de cada categoria
-        div.addEventListener('click', function (evt) {
-            trocaCatPil(evt.target.getAttribute('data-id'));
+        paragTitulo.addEventListener('click', function (evt) {
+            trocaCatPil(evt.target.getAttribute('categorias-id'));
         });
     }
 }
@@ -62,7 +60,7 @@ function mostraPilotos(pilotos) {
         //Criar elementos HTML
         var parag = document.createElement('p');
         var paragNome = document.createElement('p');
-        paragNome.setAttribute('data-id', pilotos[i].id);
+        paragNome.setAttribute('pilotos-id', pilotos[i].id);
         var img = document.createElement('img');
         var div = document.createElement('div');
         div.setAttribute('class', 'piloto');
@@ -82,16 +80,15 @@ function mostraPilotos(pilotos) {
         img.setAttribute('class', 'imagemPilotos');
         div.appendChild(img);
         divPilotos.appendChild(div);
+
+        //Evento 'onclick' para mostrar os detalhes de cada piloto
+        paragNome.addEventListener('click', function (evt) {
+            trocaPilDeta(evt.target.getAttribute('pilotos-id'));
+        });
     }
-
-    //Evento 'onclick' para mostrar os detalhes de cada piloto
-    paragNome.addEventListener('click', function (evt) {
-        trocaPilDeta(evt.target.getAttribute('data-id'));
-    });
-
 }
 
-function mostraDetalhes(detalhes) {
+function mostraDetalhes(detalhes, metadata) {
 
     //Fornecer uma pega para os elementos HTML
     var divDetails = document.querySelector('.driverDetails');
@@ -159,11 +156,23 @@ function mostraDetalhes(detalhes) {
 
     for (var j = 0; j < detalhes.multimedia.images.length; j++) {
         var image = document.createElement('img');
+        image.setAttribute('class', 'imagemMultimedia');
         var paragrafo = document.createElement('p');
         image.setAttribute('src', getImgMultimedia(detalhes.id, detalhes.multimedia.images[j].id));
-        paragrafo.textContent = `${getMetaData(detalhes.id, detalhes.multimedia.images[j].id)}`;
+        paragrafo.textContent = `${detalhes.multimedia.images[j].caption}`;
         divDetails.appendChild(image);
         divDetails.appendChild(paragrafo);
+
+        //evento para quando se carregar numa imagem, ela ficar sobreposta
+        image.addEventListener('click', function (evt) {
+            var div = document.createElement('div');
+            div.setAttribute('class', 'divImagensMultimedia');
+            //div.setAttribute('style', 'opacity: 0.75');
+            //div.setAttribute('style', 'background-color: black');
+            div.appendChild(image);
+            divDetails.appendChild(div);
+            console.log(image);
+        })
     }
 }
 // 3)
@@ -181,7 +190,7 @@ function ecraCategorias() {
 
 function ecraPilotos(id) {
 
-    getPilotos('rally')
+    getPilotos(id)
         .then(function (pilotos) {
             return mostraPilotos(pilotos);
         })
@@ -211,9 +220,9 @@ function trocaCatPil(id) {
     var divImages = document.querySelector('.images');
     var divDetails = document.querySelector('.driverDetails');
 
-    //Atribuição de visibilidade
-    divCategorias.setAttribute('style', 'display: none;');
-    divImages.setAttribute('style', 'display: none;');
+    //Atribuição de visibilidade (apaga o conteúdo)
+    divCategorias.innerHTML = "";
+    divImages.innerHTML = "";
 }
 
 function trocaPilDeta(id) {
@@ -226,10 +235,9 @@ function trocaPilDeta(id) {
     var divImages = document.querySelector('.images');
     var divDetails = document.querySelector('.driverDetails');
 
-    //Atribuição de visibilidade
-    divCategorias.setAttribute('style', 'display: none;');
-    divImages.setAttribute('style', 'display: none;');
-    divDrivers.setAttribute('style', 'display: none;');
+    //Atribuição de visibilidade (apaga o conteúdo)
+    divImages.innerHTML = "";
+    divDrivers.innerHTML= "" ;
 }
 
 function barraTopo() {
@@ -253,6 +261,7 @@ function barraTopo() {
         var divDetails = document.querySelector('.driverDetails');
 
         //Alteração de displays
+        divCategorias.innerHTML="";
         divCategorias.setAttribute('style', 'display:flex');
         divDetails.innerHTML = "";
         divDrivers.innerHTML = "";
