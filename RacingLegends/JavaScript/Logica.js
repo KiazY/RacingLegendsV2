@@ -18,7 +18,6 @@ function mostraCategorias(categorias) {
         // Criar elementos HTML, colocá-los no body ou noutro lado qualquer.
         var categories = document.querySelector('.categories');
         var paragTitulo = document.createElement('p');
-        paragTitulo.setAttribute('categorias-id', categorias[i].id);
         var paragDescricao = document.createElement('p');
 
         var div = document.createElement('div');
@@ -36,6 +35,7 @@ function mostraCategorias(categorias) {
         var img = document.createElement('img');
         img.setAttribute('src', getImagemCat(categorias[i].id));
         img.setAttribute('class', 'imagem');
+        img.setAttribute('categorias-id', categorias[i].id);
 
         //pendura os paragrafos e as imagens no div
         div.appendChild(paragTitulo);
@@ -44,7 +44,7 @@ function mostraCategorias(categorias) {
         categories.appendChild(div);
 
         //Evento 'onclick' para mostrar os pilotos de cada categoria
-        paragTitulo.addEventListener('click', function (evt) {
+        img.addEventListener('click', function (evt) {
             trocaCatPil(evt.target.getAttribute('categorias-id'));
         });
     }
@@ -60,7 +60,6 @@ function mostraPilotos(pilotos) {
         //Criar elementos HTML
         var parag = document.createElement('p');
         var paragNome = document.createElement('p');
-        paragNome.setAttribute('pilotos-id', pilotos[i].id);
         var img = document.createElement('img');
         var div = document.createElement('div');
         div.setAttribute('class', 'piloto');
@@ -78,11 +77,12 @@ function mostraPilotos(pilotos) {
         //Colocar as imagens dos pilotos
         img.setAttribute('src', getImagemPil(pilotos[i].id));
         img.setAttribute('class', 'imagemPilotos');
+        img.setAttribute('pilotos-id', pilotos[i].id);
         div.appendChild(img);
         divPilotos.appendChild(div);
 
         //Evento 'onclick' para mostrar os detalhes de cada piloto
-        paragNome.addEventListener('click', function (evt) {
+        img.addEventListener('click', function (evt) {
             trocaPilDeta(evt.target.getAttribute('pilotos-id'));
         });
     }
@@ -154,6 +154,7 @@ function mostraDetalhes(detalhes, metadata) {
     divDetails.appendChild(parag);
     parag = document.createElement('p');
 
+    //Mostra a parte das imagens da multimedia
     for (var j = 0; j < detalhes.multimedia.images.length; j++) {
         var image = document.createElement('img');
         image.setAttribute('class', 'imagemMultimedia');
@@ -172,7 +173,18 @@ function mostraDetalhes(detalhes, metadata) {
             div.appendChild(image);
             divDetails.appendChild(div);
             console.log(image);
-        })
+        });
+    }
+
+    //Mostra a parte das imagens da multimedia
+    for (var l = 0; l < detalhes.multimedia.videos.length; l++) {
+        var iframe = document.createElement(iframe);
+        iframe.setAttribute('src', 'https://www.youtube.com/embed/' + detalhes[l].multimedia.videos[l].youtube_id + '?autoplay=0&autohide=1&border=0&wmode=opaque&enablejsapi=1');
+        var paragrafo = document.createElement('p');
+        paragrafo.textContent = detalhes[l].multimedia.videos[l].caption;
+        divDetails.appendChild(iframe);
+        divDetails.appendChild(paragrafo);
+        console.log("adafa");
     }
 }
 // 3)
