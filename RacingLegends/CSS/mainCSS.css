@@ -1,0 +1,25 @@
+﻿.imagem {
+    width: 600px;
+    height: 500px;
+}
+.imagemPilotos{
+    width: 400px;
+    height:400px;
+}
+/*.piloto{
+    width:300px;
+    height:400px;
+}*/
+.imgPerfil{
+    width: 200px;
+    height: 200px;
+}
+.imagemMultimedia{
+    width: 800px;
+    height: 600px;
+}
+.driverDetails{
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+}

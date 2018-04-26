@@ -18,16 +18,20 @@ function mostraCategorias(categorias) {
         // Criar elementos HTML, colocá-los no body ou noutro lado qualquer.
         var categories = document.querySelector('.categories');
         var paragTitulo = document.createElement('p');
+        paragTitulo.setAttribute('class', 'paragTitulo text-center');
+        paragTitulo.setAttribute('style', 'position: relative; top: 52px; background: rgba(0,0,0, 0.85); color: white; font-size: 30px; width: 600px;');
         var paragDescricao = document.createElement('p');
+        paragDescricao.setAttribute('class', 'paragDescricao text-center');
+        paragDescricao.setAttribute('style', 'position: relative; bottom: 71px; background: rgba(0,0,0, 0.85); color: white; font-size: 25px; width: 600px; height: 71px;');
 
         var div = document.createElement('div');
-        div.setAttribute('class', 'divSec');
+        div.setAttribute('class', 'divSec col-lg-6');
 
         //////////////////////////////////////
         console.log(categorias[i].id);
         /////////////////////////////////////
         
-        paragTitulo.textContent = categorias[i].name + ': ';
+        paragTitulo.textContent = categorias[i].name;
 
         paragDescricao.textContent = categorias[i].description;
 
@@ -58,25 +62,27 @@ function mostraPilotos(pilotos) {
         console.log(pilotos[i].id);
 
         //Criar elementos HTML
-        var parag = document.createElement('p');
         var paragNome = document.createElement('p');
+        paragNome.setAttribute('style', 'position: relative; top: 355px; left: 70px; color: white; font-size: 30px; background: rgba(0,0,0, 0.75); width: 220px;');
+        paragNome.setAttribute('class', 'img-rounded');
         var img = document.createElement('img');
         var div = document.createElement('div');
-        div.setAttribute('class', 'piloto');
+        div.setAttribute('class', 'piloto col-lg-4 text-nowrap');
 
-        img.setAttribute('class', 'imagemPilotos');
+        img.setAttribute('class', 'imagemPilotos img-circle');
 
         //Colocar a informação dos pilotos nos paragrafos criados
         paragNome.textContent = pilotos[i].name;
         div.appendChild(paragNome);
-        parag = document.createElement('p');
+        var parag = document.createElement('p');
+        parag.setAttribute('style', 'position: relative; top: 355px; left: 70px; color: white; font-size: 30px; background: rgba(0,0,0, 0.75); width:220px;');
+        parag.setAttribute('class', 'img-rounded');
         parag.textContent = pilotos[i].nationality;
         div.appendChild(parag);
 
 
         //Colocar as imagens dos pilotos
         img.setAttribute('src', getImagemPil(pilotos[i].id));
-        img.setAttribute('class', 'imagemPilotos');
         img.setAttribute('pilotos-id', pilotos[i].id);
         div.appendChild(img);
         divPilotos.appendChild(div);
@@ -88,7 +94,7 @@ function mostraPilotos(pilotos) {
     }
 }
 
-function mostraDetalhes(detalhes, metadata) {
+function mostraDetalhes(detalhes) {
 
     //Fornecer uma pega para os elementos HTML
     var divDetails = document.querySelector('.driverDetails');
@@ -100,7 +106,7 @@ function mostraDetalhes(detalhes, metadata) {
     divInfComplex.setAttribute('class', 'divInfComplex');
     var img = document.createElement('img');
     img.setAttribute('src', getImagemPil(detalhes.id));
-    img.setAttribute('class', 'imgPerfil');
+    img.setAttribute('class', 'imgPerfil col-lg-2 img-responsive img-thumbnail');
 
     divFotoPerfil.appendChild(img);
     divInfComplex.appendChild(divFotoPerfil);
@@ -157,14 +163,14 @@ function mostraDetalhes(detalhes, metadata) {
     //Mostra a parte das imagens da multimedia
     for (var j = 0; j < detalhes.multimedia.images.length; j++) {
         var image = document.createElement('img');
-        image.setAttribute('class', 'imagemMultimedia');
+        image.setAttribute('class', 'imagemMultimedia img-responsive');
         var paragrafo = document.createElement('p');
         image.setAttribute('src', getImgMultimedia(detalhes.id, detalhes.multimedia.images[j].id));
         paragrafo.textContent = `${detalhes.multimedia.images[j].caption}`;
         divDetails.appendChild(image);
         divDetails.appendChild(paragrafo);
 
-        //evento para quando se carregar numa imagem, ela ficar sobreposta
+        /*//evento para quando se carregar numa imagem, ela ficar sobreposta
         image.addEventListener('click', function (evt) {
             var div = document.createElement('div');
             div.setAttribute('class', 'divImagensMultimedia');
@@ -173,7 +179,7 @@ function mostraDetalhes(detalhes, metadata) {
             div.appendChild(image);
             divDetails.appendChild(div);
             console.log(image);
-        });
+        });*/
     }
 
     //Mostra a parte das imagens da multimedia
@@ -229,12 +235,10 @@ function trocaCatPil(id) {
     //Criacao das pegas para os elementos HTML
     var divCategorias = document.querySelector('.categories');
     var divDrivers = document.querySelector('.drivers');
-    var divImages = document.querySelector('.images');
     var divDetails = document.querySelector('.driverDetails');
 
     //Atribuição de visibilidade (apaga o conteúdo)
     divCategorias.innerHTML = "";
-    divImages.innerHTML = "";
 }
 
 function trocaPilDeta(id) {
@@ -244,24 +248,25 @@ function trocaPilDeta(id) {
     //Criacao das pegas para os elementos HTML
     var divCategorias = document.querySelector('.categories');
     var divDrivers = document.querySelector('.drivers');
-    var divImages = document.querySelector('.images');
     var divDetails = document.querySelector('.driverDetails');
 
     //Atribuição de visibilidade (apaga o conteúdo)
-    divImages.innerHTML = "";
     divDrivers.innerHTML= "" ;
 }
 
 function barraTopo() {
 
     //adquirir o interface estático
-    var divTopBar = document.querySelector('.topBar');
+    var navTopBar = document.querySelector('.topBar');
+    navTopBar.setAttribute('class', 'nav navbar-fixed-top');
 
     //criação do botão 'home' para voltar para as categorias
     var btnHome = document.createElement('input');
     btnHome.setAttribute('type', 'button');
     btnHome.setAttribute('value', 'Home');
-    divTopBar.appendChild(btnHome);
+    btnHome.setAttribute('style', 'background: #e9ebee; border: 2px; border-style: solid; border-color: white; color: black; margin-right: 2px;');
+    btnHome.setAttribute('class', 'btn-lg btn pull-right');
+    navTopBar.appendChild(btnHome);
 
     //evento para quando se carregar no botão 'home', a aplicação voltar para as categorias
     btnHome.addEventListener('click', function (_) {
@@ -269,15 +274,12 @@ function barraTopo() {
         //Criacao das pegas para os elementos HTML
         var divCategorias = document.querySelector('.categories');
         var divDrivers = document.querySelector('.drivers');
-        var divImages = document.querySelector('.images');
         var divDetails = document.querySelector('.driverDetails');
 
         //Alteração de displays
         divCategorias.innerHTML="";
-        divCategorias.setAttribute('style', 'display:flex');
         divDetails.innerHTML = "";
         divDrivers.innerHTML = "";
-        divImages.innerHTML = "";
 
         ecraCategorias();
     });
