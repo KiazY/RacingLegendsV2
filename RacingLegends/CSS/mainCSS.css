@@ -1,15 +1,13 @@
 ﻿.imagem {
     width: 600px;
     height: 500px;
+    cursor: pointer;
 }
-.imagemPilotos{
+.imagemPilotos {
     width: 400px;
-    height:400px;
+    height: 400px;
+    cursor: pointer;
 }
-/*.piloto{
-    width:300px;
-    height:400px;
-}*/
 .imgPerfil{
     width: 200px;
     height: 200px;
@@ -21,5 +19,8 @@
 .driverDetails{
     color: white;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
+}
+.pop_up{
+    margin: auto;
 }

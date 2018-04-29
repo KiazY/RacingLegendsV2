@@ -118,7 +118,7 @@ function mostraDetalhes(detalhes) {
         parag.textContent = `Nickname: ${detalhes.nickname}`;
         divInfBasic.appendChild(parag);
     } else {
-        parag.textContent = 'Nickname: Não tem';
+        parag.textContent = 'Nickname: Doesnt have';
         divInfBasic.appendChild(parag);
     }
     parag = document.createElement('p');
@@ -162,6 +162,11 @@ function mostraDetalhes(detalhes) {
 
     //Mostra a parte das imagens da multimedia
     for (var j = 0; j < detalhes.multimedia.images.length; j++) {
+
+        var divCategorias = document.querySelector('.categories');
+        var divDrivers = document.querySelector('.drivers');
+        var divDetails = document.querySelector('.driverDetails');
+
         var image = document.createElement('img');
         image.setAttribute('class', 'imagemMultimedia img-responsive');
         var paragrafo = document.createElement('p');
@@ -171,18 +176,17 @@ function mostraDetalhes(detalhes) {
         divDetails.appendChild(paragrafo);
 
         /*//evento para quando se carregar numa imagem, ela ficar sobreposta
-        image.addEventListener('click', function (evt) {
-            var div = document.createElement('div');
-            div.setAttribute('class', 'divImagensMultimedia');
-            //div.setAttribute('style', 'opacity: 0.75');
-            //div.setAttribute('style', 'background-color: black');
-            div.appendChild(image);
-            divDetails.appendChild(div);
+        image.addEventListener('click', function () {
+            var driverDetails = document.querySelector('.driverDetails');
+            var pop_up = driverDetails.querySelector('.popup');
+            pop_up.innerHTML = "";
+            pop_up.appendChild(image);
+            divDetails.appendChild(pop_up);
             console.log(image);
         });*/
     }
 
-    //Mostra a parte das imagens da multimedia
+    /*//Mostra a parte dos videos da multimedia
     for (var l = 0; l < detalhes.multimedia.videos.length; l++) {
         var iframe = document.createElement(iframe);
         iframe.setAttribute('src', 'https://www.youtube.com/embed/' + detalhes[l].multimedia.videos[l].youtube_id + '?autoplay=0&autohide=1&border=0&wmode=opaque&enablejsapi=1');
@@ -191,7 +195,7 @@ function mostraDetalhes(detalhes) {
         divDetails.appendChild(iframe);
         divDetails.appendChild(paragrafo);
         console.log("adafa");
-    }
+    }*/
 }
 // 3)
 function ecraCategorias() {
